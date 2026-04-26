@@ -173,7 +173,20 @@ const ResultsScreen = ({ score, total, subject, answers, questions, onRetry, onB
               {grade.label}
             </div>
             <p className="text-slate-500 text-sm">{score} correct out of {total} questions</p>
-            {isPerfect && <p className="text-amber-600 text-xs font-black mt-2 uppercase tracking-widest">+25 Pts Mastery Bonus</p>}
+            
+            <div className="flex items-center justify-center gap-6 mt-5 bg-slate-50 py-3 rounded-2xl border border-slate-100">
+                <div className="text-center">
+                    <p className="text-[10px] font-black uppercase text-slate-400 tracking-widest">XP Earned</p>
+                    <p className="text-lg font-black text-jurisma-600">+{subject.earnedXP || 20} XP</p>
+                </div>
+                <div className="w-px h-8 bg-slate-200"></div>
+                <div className="text-center">
+                    <p className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Leaderboard</p>
+                    <p className="text-lg font-black text-amber-500">{subject.leaderboardRank ? `Rank #${subject.leaderboardRank}` : 'Unranked'}</p>
+                </div>
+            </div>
+
+            {isPerfect && <p className="text-amber-600 text-xs font-black mt-4 uppercase tracking-widest flex items-center justify-center gap-1"><Flame size={14} /> +50% Mastery Bonus Applied</p>}
           </div>
 
           {/* Review */}
@@ -224,6 +237,7 @@ export default function QuizSession({ onBack, sectionQuiz = null }) {
   const [secondsLeft, setSecondsLeft] = useState(60);
   const [timerActive, setTimerActive] = useState(false);
   const [hearts, setHearts] = useState(5);
+  const [isFinishing, setIsFinishing] = useState(false);
 
   const currentQ = questions[currentIndex];
   const score = answers.filter((a, i) => a === questions[i]?.correctIndex).length;
@@ -305,9 +319,10 @@ export default function QuizSession({ onBack, sectionQuiz = null }) {
     }
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     const nextIndex = currentIndex + 1;
     if (nextIndex >= questions.length) {
+      setIsFinishing(true);
       // Finalize Session
       const backendAnswers = answers.map((ans, i) => ({
           question_id: questions[i]?.id,
@@ -317,8 +332,22 @@ export default function QuizSession({ onBack, sectionQuiz = null }) {
       
       // Points + Multiplier Logic
       const isPerfect = score === questions.length;
-      api.logActivity('quiz_completion', 20, isPerfect).catch(err => console.error("Streak log failed:", err));
+      let finalXP = 20;
+      let rank = null;
+
+      try {
+          const res = await api.logActivity('quiz_completion', 20, isPerfect);
+          finalXP = res.points_earned;
+          
+          const board = await api.getLeaderboard();
+          const myEntry = board.find(u => u.is_me);
+          if (myEntry) rank = myEntry.rank;
+      } catch (err) {
+          console.error("Streak log failed:", err);
+      }
       
+      setSubject(prev => ({ ...prev, earnedXP: finalXP, leaderboardRank: rank }));
+      setIsFinishing(false);
       setScreen("results");
     } else {
       // Move to next question if hearts left
@@ -398,7 +427,7 @@ export default function QuizSession({ onBack, sectionQuiz = null }) {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 p-4 md:p-8 max-w-2xl mx-auto w-full">
+      <div className="flex-1 p-4 md:p-8 max-w-2xl mx-auto w-full pb-32 md:pb-40">
         <div className="flex items-center gap-3 mb-5 mt-2">
           {currentQ && <DifficultyBadge level={currentQ.difficulty} />}
           <span className="text-[10px] text-slate-400 font-black uppercase tracking-widest">{subject?.title}</span>
@@ -464,7 +493,7 @@ export default function QuizSession({ onBack, sectionQuiz = null }) {
       </div>
 
       {/* Bottom Action Bar */}
-      <div className="sticky bottom-0 bg-white border-t border-slate-100 p-5 md:p-8 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
+      <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-100 p-5 md:p-8 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
         <div className="max-w-2xl mx-auto">
           {!isSubmitted ? (
             <button
@@ -480,7 +509,7 @@ export default function QuizSession({ onBack, sectionQuiz = null }) {
               className="w-full py-4 rounded-2xl font-black text-sm uppercase tracking-[0.2em] bg-jurisma-600 text-white hover:bg-jurisma-700 transition-all duration-300 flex items-center justify-center gap-3 shadow-xl shadow-jurisma-600/20"
             >
               {currentIndex + 1 >= questions.length ? (
-                <><Trophy size={18} /> Review Standings</>
+                <>{isFinishing ? <Loader2 className="animate-spin" size={18} /> : <Trophy size={18} />} Review Standings</>
               ) : (
                 <>Next Case <ChevronRight size={18} /></>
               )}

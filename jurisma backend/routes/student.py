@@ -24,8 +24,29 @@ def get_dashboard():
         
         # Fallback for missing columns if migration not run yet
         data = user.data or {}
+        
+        # Verify Streak Validity
+        from datetime import date, datetime, timedelta
+        today = date.today()
+        yesterday = today - timedelta(days=1)
+        
+        last_activity_str = data.get('last_activity_date')
+        current_streak = data.get('current_streak', 0)
+        
+        if current_streak > 0 and last_activity_str:
+            try:
+                # Handle potential +00:00 or Z in isoformat
+                last_activity = datetime.fromisoformat(last_activity_str.replace('Z', '+00:00')).date()
+                if last_activity < yesterday:
+                    # User missed yesterday! Reset streak to 0
+                    current_streak = 0
+                    supabase.table("users").update({"current_streak": 0}).eq("id", user_id).execute()
+                    data['current_streak'] = 0
+            except ValueError:
+                pass
+
         return success_response(data={
-            "streak": data.get("current_streak", 0),
+            "streak": current_streak,
             "longest_streak": data.get("longest_streak", 0),
             "freezes": data.get("streak_freeze_count", 0),
             "last_activity": data.get("last_activity_at"),
