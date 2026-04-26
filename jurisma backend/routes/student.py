@@ -33,11 +33,16 @@ def get_dashboard():
         last_activity_str = data.get('last_activity_date')
         current_streak = data.get('current_streak', 0)
         
-        if current_streak > 0 and last_activity_str:
+        if last_activity_str:
             try:
                 # Handle potential +00:00 or Z in isoformat
                 last_activity = datetime.fromisoformat(last_activity_str.replace('Z', '+00:00')).date()
-                if last_activity < yesterday:
+                if last_activity < today:
+                    # It's a new day! Refill hearts to 5.
+                    supabase.table("users").update({"hearts": 5}).eq("id", user_id).execute()
+                    data['hearts'] = 5
+
+                if current_streak > 0 and last_activity < yesterday:
                     # User missed yesterday! Reset streak to 0
                     current_streak = 0
                     supabase.table("users").update({"current_streak": 0}).eq("id", user_id).execute()

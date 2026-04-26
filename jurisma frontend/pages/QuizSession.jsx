@@ -95,12 +95,20 @@ const SubjectSelect = ({ onSelect, onBack, sectionQuiz = null, currentHearts }) 
       </div>
 
       {currentHearts === 0 && (
-         <div className="bg-rose-50 border border-rose-200 rounded-2xl p-4 mb-6 flex items-center gap-3 text-rose-800">
-            <AlertCircle className="shrink-0" />
-            <div className="text-xs">
-               <p className="font-bold">No Hearts Remaining!</p>
-               <p className="opacity-80">Wait for your hearts to refill or revise previous sections to earn more.</p>
+         <div className="bg-rose-50 border border-rose-200 rounded-2xl p-5 mb-6 shadow-sm">
+            <div className="flex items-start gap-3 text-rose-800 mb-3">
+              <AlertCircle className="shrink-0 mt-0.5" />
+              <div className="text-sm">
+                 <p className="font-bold">No Hearts Remaining!</p>
+                 <p className="opacity-80 mt-1">Wait for your hearts to refill or revise previous sections to earn more.</p>
+              </div>
             </div>
+            <button 
+              onClick={() => window.location.href = '/student/shop'}
+              className="w-full py-3 bg-white border border-rose-200 text-rose-600 hover:bg-rose-100 hover:border-rose-300 font-bold rounded-xl transition-all flex items-center justify-center gap-2 shadow-sm text-sm"
+            >
+              <Heart size={16} className="fill-rose-500 text-rose-500" /> Refill Hearts in Store
+            </button>
          </div>
       )}
 
