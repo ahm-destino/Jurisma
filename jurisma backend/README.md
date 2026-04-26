@@ -1,0 +1,1 @@
+https://nigerian-constitution.com/sections/ - this is where the nigerian constitution was gotten from

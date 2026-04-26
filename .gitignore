@@ -1,0 +1,48 @@
+# ============================================================
+# Jurisma Project - Root .gitignore
+# ============================================================
+
+# ── Environment / Secrets ───────────────────────────────────
+**/.env
+**/.env.local
+**/.env.production
+**/.env.*.local
+
+# ── Python ──────────────────────────────────────────────────
+**/venv/
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+**/*.egg-info/
+**/dist/
+**/build/
+**/.pytest_cache/
+
+# ── Node / Frontend ─────────────────────────────────────────
+**/node_modules/
+**/dist/
+**/.next/
+**/build/
+
+# ── Large data files ─────────────────────────────────────────
+jurisma backend/data/laws/nigerian_laws_dataset.json
+
+# ── Logs ────────────────────────────────────────────────────
+**/*.log
+**/server.log
+
+# ── Uploads ─────────────────────────────────────────────────
+jurisma backend/uploads/
+
+# ── OS files ────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── VS Code ─────────────────────────────────────────────────
+.vscode/
+
+# ── Nested git repos (will be handled as part of main repo) ─
+jurisma backend/.git/
+jurisma frontend/.git/

@@ -1,0 +1,55 @@
+# Environments (Sensitive & large)
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Logs
+*.log
+server.log
+
+# Output & Data files (Large files)
+*.pdf
+# NOTE: If you decide later that you don't want to track the generated JSON 
+# scripts in git, you can uncomment the line below:
+# *.json
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.sweed
+.hypothesis/
+.pytest_cache/
+cover/
+
+# VS Code / IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# MacOS
+.DS_Store
