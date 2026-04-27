@@ -41,14 +41,25 @@ export default function Library() {
   }, [fetchItems]);
 
   const handleResourceClick = async (resource) => {
+    console.log("[Library] Resource clicked:", resource);
+    if (!resource || !resource.id) {
+      console.error("[Library] Cannot open resource: missing ID", resource);
+      return;
+    }
+
     setSelectedResource(resource);
     setLoadingDetails(true);
     setResourceDetails(null);
     try {
+      console.log(`[Library] Fetching details for resource ${resource.id}...`);
       const data = await api.getLibraryResource(resource.id);
+      console.log("[Library] Resource details received:", data);
       setResourceDetails(data);
+      // Scroll to top when opening a document
+      window.scrollTo(0, 0);
     } catch (err) {
-      console.error('Error fetching resource details:', err);
+      console.error('[Library] Error fetching resource details:', err);
+      setError("Failed to load document content. Please check if the backend is running.");
     } finally {
       setLoadingDetails(false);
     }

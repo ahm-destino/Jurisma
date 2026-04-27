@@ -212,15 +212,17 @@ const ChatWidget = () => {
 
 const Hero = ({ onCta, onViewChange }) => {
   return (
-    <section className="relative min-h-[95vh] flex flex-col items-center justify-center pt-20 pb-12 overflow-hidden bg-transparent transition-colors duration-500">
+    <section className="relative min-h-screen flex flex-col items-center justify-center pt-20 pb-20 overflow-hidden bg-transparent transition-colors duration-500">
 
       {/* (Background effects handled by main component) */}
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
-        <Badge text="Jurisma is Live" icon={Activity} />
+        <div className="flex justify-center mb-8">
+          <Badge text="Jurisma is Live" icon={Activity} />
+        </div>
 
-        <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-sans font-bold text-slate-900 dark:text-jurisma-50 tracking-tighter mb-6 md:mb-8 leading-[1.1] md:leading-[0.95] animate-fade-in max-w-4xl mx-auto">
-          Legal <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-slate-500 dark:from-jurisma-50 dark:to-jurisma-100/50">Intelligence</span> <span className="text-jurisma-accent block sm:inline">Reimagined.</span>
+        <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-sans font-bold text-slate-900 dark:text-jurisma-50 tracking-tighter mb-6 md:mb-8 leading-[1.15] md:leading-[0.95] animate-fade-in max-w-4xl mx-auto">
+          Legal <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-slate-500 dark:from-jurisma-50 dark:to-jurisma-100/50">Intelligence</span> <br className="sm:hidden" /> <span className="text-jurisma-accent">Reimagined.</span>
         </h1>
 
         <p className="text-base md:text-xl text-slate-500 dark:text-jurisma-100/70 max-w-2xl mx-auto mb-10 md:mb-12 font-normal leading-relaxed animate-fade-in" style={{ animationDelay: '100ms' }}>
@@ -237,14 +239,14 @@ const Hero = ({ onCta, onViewChange }) => {
             <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-slate-50 dark:bg-jurisma-900 text-slate-500 dark:text-jurisma-100">
               <Search size={20} />
             </div>
-            <div className="flex-1 px-4 text-left">
+            <div className="flex-1 px-3 md:px-4 text-left min-w-0">
               <div className="text-[10px] font-bold text-slate-400 dark:text-jurisma-100/40 uppercase tracking-wider mb-0.5">Global Search</div>
-              <div className="text-slate-900 dark:text-jurisma-50 font-medium truncate">Find lawyers, practice areas, or case law...</div>
+              <div className="text-slate-900 dark:text-jurisma-50 font-medium truncate text-sm md:text-base">Find lawyers, practice areas, or case law...</div>
             </div>
             <div className="hidden md:flex items-center gap-3 px-4">
               <span className="px-2 py-1 rounded bg-slate-100 dark:bg-jurisma-900 text-[10px] font-bold text-slate-500 dark:text-jurisma-100/50 font-mono border border-slate-200 dark:border-jurisma-500/30">⌘ K</span>
             </div>
-            <Button className="ml-2 rounded-xl px-6 h-12 shadow-lg shadow-jurisma-accent/20" variant="secondary">
+            <Button className="ml-2 rounded-xl px-4 md:px-6 h-10 md:h-12 shadow-lg shadow-jurisma-accent/20 text-xs md:text-sm" variant="secondary">
               Explore
             </Button>
           </div>
