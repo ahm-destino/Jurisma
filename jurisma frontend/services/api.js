@@ -575,6 +575,12 @@ export const getLibraryItems = async (category = 'all', search = '') => {
     return data.data;
 };
 
+// Get single library resource
+export const getLibraryResource = async (resourceId) => {
+    const data = await apiRequest(`/legal/library/${resourceId}`);
+    return data.data;
+};
+
 // ==================== DICTIONARY ENDPOINTS ====================
 
 // Search dictionary
@@ -925,6 +931,7 @@ export default {
 
     // Library
     getLibraryItems,
+    getLibraryResource,
 
     // Student Hub
     getStudentDashboard,
