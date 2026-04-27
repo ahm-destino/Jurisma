@@ -216,21 +216,21 @@ const Hero = ({ onCta, onViewChange }) => {
 
       {/* (Background effects handled by main component) */}
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
-        <div className="flex justify-center mb-8">
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-4 flex flex-col items-center text-center overflow-hidden">
+        <div className="mb-6 md:mb-10">
           <Badge text="Jurisma is Live" icon={Activity} />
         </div>
 
-        <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-sans font-bold text-slate-900 dark:text-jurisma-50 tracking-tighter mb-6 md:mb-8 leading-[1.15] md:leading-[0.95] animate-fade-in max-w-4xl mx-auto">
+        <h1 className="w-full text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-sans font-bold text-slate-900 dark:text-jurisma-50 tracking-tighter mb-6 md:mb-8 leading-[1.2] md:leading-[0.95] animate-fade-in max-w-4xl mx-auto">
           Legal <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-slate-500 dark:from-jurisma-50 dark:to-jurisma-100/50">Intelligence</span> <br className="sm:hidden" /> <span className="text-jurisma-accent">Reimagined.</span>
         </h1>
 
-        <p className="text-base md:text-xl text-slate-500 dark:text-jurisma-100/70 max-w-2xl mx-auto mb-10 md:mb-12 font-normal leading-relaxed animate-fade-in" style={{ animationDelay: '100ms' }}>
+        <p className="text-base md:text-xl text-slate-500 dark:text-jurisma-100/70 max-w-2xl mx-auto mb-10 md:mb-12 font-normal leading-relaxed animate-fade-in px-2" style={{ animationDelay: '100ms' }}>
           The operating system for modern justice. Verify professionals, analyze precedents, and leverage AI in one unified interface.
         </p>
 
         {/* Command Bar Search */}
-        <div className="relative max-w-2xl mx-auto group animate-fade-in" style={{ animationDelay: '200ms' }}>
+        <div className="relative w-full max-w-2xl mx-auto group animate-fade-in" style={{ animationDelay: '200ms' }}>
           <div className="absolute -inset-1 bg-gradient-to-r from-jurisma-accent/20 to-jurisma-500/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
           <div
             onClick={() => onViewChange('lawyers')}

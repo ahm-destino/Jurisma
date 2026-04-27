@@ -94,13 +94,27 @@
       background: #d69e2e;
     }
 
+    /* Prevent Horizontal Scroll/Shift */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    #root {
+      width: 100%;
+      overflow-x: hidden;
+    }
+
     /* Background Utilities */
     .bg-grid-white {
       background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgba(255, 255, 255, 0.05)'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
     }
 
     .bg-grid-black {
-      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgba(0, 0, 0, 0.05)'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/xml' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgba(0, 0, 0, 0.05)'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
     }
   </style>
   <link rel="stylesheet" href="/index.css">
